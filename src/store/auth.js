@@ -37,13 +37,13 @@ export default {
     },
 
 
-    /*async register({
+    async register({
         dispatch
       },
       register_data) {
       let response = await axios.post("/api/v1/users", register_data);
       dispatch("attemp")
-    },*/
+    },
 
 
     async attempt({
