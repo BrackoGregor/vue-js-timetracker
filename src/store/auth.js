@@ -10,7 +10,7 @@ export default {
   },
 
   getters: {
-    isLogged(state) {
+    authenticated(state) {
       return state.token && state.user;
     },
 
@@ -31,38 +31,42 @@ export default {
     async login({
       dispatch
     }, login_data) {
-      let response = await axios.post("/api/login", login_data); //TODO fix endpoint
+      let response = await axios.post("/oauth/token", login_data)
 
-      dispatch('attempt', response.data.token);
+      return dispatch('attempt', response.data.access_token)
+    },
+
+    async register(_, register_data) {
+      await axios.post("/api/v1/users", register_data)
+    
     },
 
 
-    async register({
-        dispatch
-      },
-      register_data) {
-      let response = await axios.post("/api/v1/users", register_data);
-      dispatch("attemp")
-    },
-
-
-    async attempt({
-      commit
+    async attempt({ //Check if token is valid
+      commit, state
     }, token) {
-      commit('SET_TOKEN', token)
+      if (token) {
+        commit('SET_TOKEN', token)
+      }
+
+      if (!state.token) {
+        return
+      }
 
       try {
-        let response = await axios.get('/api/user', {
-          headers: {
-            'Authorization': 'Bearer ' + token
-          }
-        })
+        let response = await axios.get('/api/user')
 
         commit('SET_USER', response.data)
+        //console.log(state.user);
       } catch (e) {
         commit('SET_TOKEN', null)
         commit('SET_USER', null)
       }
+    },
+
+    signOut({commit}) {
+        commit('SET_TOKEN', null)
+        commit('SET_USER', null)
     }
 
   },

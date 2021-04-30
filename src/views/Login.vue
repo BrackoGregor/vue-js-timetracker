@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row h-screen">
+  <div class="flex flex-row h-screen w-full">
     <div class="flex items-center justify-center bg-gray-light w-full">
       <form
         @submit.prevent="submit"
@@ -14,7 +14,7 @@
         </div>
         <div class="flex flex-col">
           <input
-            v-model="form.email"
+            v-model="form.username"
             name="email"
             type="email"
             autocomplete="email"
@@ -75,13 +75,18 @@
 
 <script>
 import { mapActions } from "vuex";
+import router from "../router"; 
 
 export default {
   data() {
     return {
       form: {
-        email: "",
+        grant_type: "password",
+        username: "",
         password: "",
+        client_id: "2",
+        client_secret: "KpKQfp5URCm8cn3h4ZPeF16kjnSLfCcuUBrTkDrv",
+        scope: null,
       },
     };
   },
@@ -91,7 +96,14 @@ export default {
     }),
 
     submit() {
-      this.login(this.form);
+      //console.log(this.form);
+      this.login(this.form).then(()=> {
+        router.replace({
+          name:'Add'
+        })
+      }).catch(()=>{
+        console.log("Prijava neuspešna!")
+      })
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row h-screen shadow-sideBar">
+  <div class="flex flex-row h-screen shadow-sideBar" v-if="authenticated">
     <nav class="bg-blue w-12 justify-between flex flex-col" v-show="arrow">
       <div class="mt-5 mb-10">
         <a href="#" v-on:click="arrow = !arrow">
@@ -47,9 +47,10 @@
                     class="rounded-full w-12 h-12 mb-3 mr-0.5 ml-4 border-solid border-2 border-white"
                   />
                   <h1
+                    
                     class="text-white mt-2 ml-4 mr-4 text-2xl font-customFont"
                   >
-                    Tomas Kovačič
+                    {{ user.firstname + " " + user.lastname }}
                   </h1>
                 </span>
               </div>
@@ -67,6 +68,9 @@
                 </span>
               </router-link>
             </li>
+              <span class="flex hover:opacity-100 opacity-50">
+                <h1 @click.prevent="signOut" class="text-white font-customFont text-lg">Sign out</h1>
+              </span>
           </ul>
         </div>
       </div>
@@ -75,6 +79,9 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+import router from "../router";
+
 export default {
   data() {
     return {
@@ -118,18 +125,33 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapGetters({
+      authenticated: "auth/authenticated",
+      user: "auth/user",
+    }),
+  },
+  methods: {
+    ...mapActions({
+      signOutAction: "auth/signOut",
+    }),
+    signOut() {
+      this.signOutAction().then(() => {
+        router.replace({
+          name: "Login",
+        });
+      });
+    },
+  },
 };
 </script>
 
 <style>
-
-a.router-link-exact-active>span {
-    @apply opacity-100;
+a.router-link-exact-active > span {
+  @apply opacity-100;
 }
 
-a.router-link-exact-active>span>img {
-    @apply opacity-100;
+a.router-link-exact-active > span > img {
+  @apply opacity-100;
 }
-
-
 </style>

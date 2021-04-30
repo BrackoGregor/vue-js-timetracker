@@ -12,14 +12,7 @@
       v-else-if="currentRouteName == 'Clients'"
       class="font-customFont font-medium text-white text-2xl"
     >
-      Solve-x
-      <!--TODO: GET AS prop -->
-    </h1>
-    <h1
-      v-else-if="currentRouteName == 'Clients/1'"
-      class="font-customFont font-medium text-white text-2xl"
-    >
-      dasadsdasds
+      Pick a client
       <!--TODO: GET AS prop -->
     </h1>
     <h1
@@ -29,10 +22,12 @@
       Project
       <!--TODO: GET AS prop -->
     </h1>
-
-
-    <h1>
-       {{ currentRouteName }}
+    <h1
+      v-else
+      class="font-customFont font-medium text-white text-2xl"
+    >
+       {{currentRouteId()}}
+      <!--TODO: GET AS prop -->
     </h1>
   </div>
 </template>
@@ -40,8 +35,13 @@
 <script>
 import moment from "moment";
 export default {
+  props: {
+    clients: Array,
+  },
   data() {
-    return {};
+    return {
+      currentId: 0,
+    };
   },
   computed: {
     currentRouteName() {
@@ -51,6 +51,11 @@ export default {
       return moment().format("LL");
     },
   },
+  methods: {
+    currentRouteId() {
+      return this.$route.params.id;
+    },
+  }
 };
 </script>
 

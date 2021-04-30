@@ -67,6 +67,8 @@
           />
         </div>
 
+        <h1 class="pl-6 mx-12 font-light font-customFont text-xl "></h1>
+
         <div class="flex flex-col">
           <button
             type="submit"
@@ -94,17 +96,20 @@
 
 <script>
 import { mapActions } from "vuex";
+import router from "../router"; 
 
 export default {
   data() {
     return {
+      respons:[],
+      errors:[],
       form: {
         firstname: "",
         lastname: "",
         username: "",
         email: "",
         password: "",
-        id_users_roles: 2,
+        id_users_roles: 1,
       },
     };
   },
@@ -114,8 +119,16 @@ export default {
     }),
 
     submit() {
-      //console.log(this.form.firstname);
-      this.register(this.form);
+      this.register(this.form).then(function (response) {
+        console.log(response)
+        router.replace({
+          name:'Login'
+        })
+      }, function (error) {
+        //this.errors = error.response.data.errors
+        console.log(error.response.data.errors)
+      });
+      
     },
   },
 };
