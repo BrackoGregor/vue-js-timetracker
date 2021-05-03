@@ -1,4 +1,4 @@
-# web timetracker
+# web
 
 ## Project setup
 ```
