@@ -12,7 +12,14 @@ export default {
   components: {
     Navbar,
   },
+
+  mounted () {
+	let root = this.myprop || '/add'
+	this.$router.push({ path: root });
+}
 };
+
+
 </script>
 
 <style>
