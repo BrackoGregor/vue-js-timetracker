@@ -10,7 +10,7 @@ import "./index.css";
 require('@/store/subscriber');
 
 
-axios.defaults.baseURL = "http://127.0.0.1:8000"
+axios.defaults.baseURL = "/app/"
 
 store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
   createApp(App).use(store).use(router).mount("#app");
