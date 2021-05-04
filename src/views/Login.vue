@@ -89,7 +89,7 @@ export default {
         username: "",
         password: "",
         client_id: "2",
-        client_secret: "KpKQfp5URCm8cn3h4ZPeF16kjnSLfCcuUBrTkDrv",
+        client_secret: "g6GTqpX3Qq4ZcyZLoSzpDhlc9H4j6dCDjp22lJOE",
         scope: null,
       },
     };
