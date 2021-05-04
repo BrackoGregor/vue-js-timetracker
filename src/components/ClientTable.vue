@@ -96,6 +96,8 @@ export default {
       totalData: 110,
     };
   },
+  
+  
   methods: {
     onPageChange(page) {
       console.log(page);
@@ -110,6 +112,8 @@ export default {
       return this.projects.filter(this.projects.id_clients == this.currentId);
     },
   },
+
+
   components: { Pagination },
 };
 </script>

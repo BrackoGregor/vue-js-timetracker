@@ -51,9 +51,10 @@ export default {
     axios.get("/api/v1/assignments").then((response) => {
       this.projects = response.data.data;
     });
-    /* axios.get("/api/v1/assignmentsClient/{currentId}").then((response) => {
+    /*axios.get(`/api/v1/assignmentsClient/${this.getCurrentId}`).then((response) => {
       this.projects2 = response.data.data;
     });*/
+    
     /*axios.get("/api/v1/statuses").then((response) => {
       this.statuses = response.data.data;
     });*/
